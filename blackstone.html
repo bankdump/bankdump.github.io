@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snowfall with Sparkling Effects</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-image: url('https://files.catbox.moe/txn0tt.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      overflow: hidden;
+      font-family: sans-serif;
+      cursor: default;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -5vh;
+      color: white;
+      font-size: 1em;
+      user-select: none;
+      z-index: 9999;
+      animation: fall linear infinite, driftLeft ease-in-out infinite;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); opacity: 0; }
+    }
+
+    @keyframes driftLeft {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(-20px); }
+    }
+
+    .twitter-link {
+      position: fixed;
+      top: 25%;
+      left: 20px;
+      z-index: 99999;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 16px;
+      border-radius: 12px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s;
+    }
+
+    .twitter-link:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .sparkle-zone {
+      position: fixed;
+      top: 35%;
+      left: 20px;
+      z-index: 99999;
+      padding: 10px 16px;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+      box-shadow:
+        0 0 12px rgba(255,215,0,0.9),
+        0 0 24px rgba(255,215,0,0.6),
+        inset 0 0 6px rgba(255,215,0,0.8);
+    }
+
+    .sparkle-zone a {
+      color: #FFD700;
+      text-decoration: underline;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    .sparkle {
+      position: absolute;
+      color: gold;
+      user-select: none;
+      pointer-events: none;
+      font-size: 6px;
+      opacity: 0;
+      animation: twinkle linear infinite;
+    }
+
+    @keyframes twinkle {
+      0%,100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .center-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 99998;
+      font-size: 1.5em;
+      line-height: 1.4;
+    }
+
+    .center-content .item {
+      display: block;
+      margin: 8px 0;
+    }
+
+    .center-content .highlight {
+      position: relative;
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(255,215,0,0.7),
+                  inset 0 0 4px rgba(255,215,0,0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <audio autoplay loop>
+    <source src="https://files.catbox.moe/xx3jzr.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <a href="https://x.com/federalinsight" target="_blank" class="twitter-link">
+    @federalinsight
+  </a>
+
+  <div class="sparkle-zone">
+    <a href="https://doxbin.net/upload/part1blackstone" target="_blank">
+      https://doxbin.net/upload/part1blackstone
+    </a>
+  </div>
+
+  <div class="center-content">
+    <span class="item highlight">
+      <div class="sparkle">✦</div>
+      crucifiedv1
+      <div class="sparkle">✦</div>
+    </span>
+    <span class="item">dev</span>
+    <span class="item">warcime</span>
+    <span class="item">sinner</span>
+  </div>
+
+  <script>
+    // Falling snowflakes
+    const snowflakeCount = 150;
+    for (let i = 0; i < snowflakeCount; i++) {
+      const f = document.createElement('div');
+      f.className = 'snowflake';
+      f.textContent = '❄';
+      const size = Math.random() * 20 + 10;
+      const left = Math.random() * 100;
+      const fallDur = Math.random() * 5 + 5;
+      const driftDur = Math.random() * 3 + 2;
+      const delay = Math.random() * 10;
+      f.style.fontSize = `${size}px`;
+      f.style.left = `${left}vw`;
+      f.style.animationDuration = `${fallDur}s, ${driftDur}s`;
+      f.style.animationDelay = `${delay}s, ${delay}s`;
+      document.body.appendChild(f);
+    }
+
+    // Sparkles around .sparkle-zone
+    const zone = document.querySelector('.sparkle-zone');
+    for (let i = 0; i < 30; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.textContent = '✦';
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.left = `${Math.random() * 100}%`;
+      const dur = Math.random() * 1 + 0.5;
+      const dly = Math.random() * 2;
+      s.style.animationDuration = `${dur}s`;
+      s.style.animationDelay = `${dly}s`;
+      zone.appendChild(s);
+    }
+
+    // Sparkles around "crucifiedv1"
+    const highlight = document.querySelector('.center-content .highlight');
+    for (let i = 0; i < 12; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.textContent = '✦';
+      const x = Math.random() * highlight.clientWidth;
+      const y = Math.random() * highlight.clientHeight;
+      s.style.left = `${x}px`;
+      s.style.top  = `${y}px`;
+      const dur = Math.random() * 1 + 0.5;
+      const dly = Math.random() * 2;
+      s.style.animationDuration = `${dur}s`;
+      s.style.animationDelay = `${dly}s`;
+      highlight.appendChild(s);
+    }
+
+    // Mouse-drag snow effect
+    document.addEventListener('mousemove', e => {
+      for (let i = 0; i < 2; i++) {
+        const flake = document.createElement('div');
+        flake.textContent = '❄';
+        flake.style.position = 'fixed';
+        flake.style.left = `${e.clientX + (Math.random() * 20 - 10)}px`;
+        flake.style.top = `${e.clientY + (Math.random() * 20 - 10)}px`;
+        flake.style.fontSize = `${Math.random() * 10 + 10}px`;
+        flake.style.color = 'white';
+        flake.style.pointerEvents = 'none';
+        flake.style.opacity = 1;
+        flake.style.transition = 'top 2s ease-out, opacity 2s ease-out';
+        flake.style.zIndex = 9999;
+        document.body.appendChild(flake);
+        requestAnimationFrame(() => {
+          flake.style.top = `${e.clientY + 50 + Math.random() * 30}px`;
+          flake.style.opacity = 0;
+        });
+        setTimeout(() => flake.remove(), 2000);
+      }
+    });
+  </script>
+
+</body>
+</html>
